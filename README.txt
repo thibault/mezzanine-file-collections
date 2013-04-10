@@ -14,7 +14,8 @@ Installation is quite simple.
 
     $ pip install mezzanine-media-library
 
-Then add "mezzanine_media_library" to your list of installed apps.
+Add "mezzanine_media_library" to your list of installed apps. Then migrate
+your database. That's it.
 
 ## Usage
 

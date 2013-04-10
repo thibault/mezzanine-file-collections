@@ -1,0 +1,35 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags staticfiles %}
+
+{% block main %}
+{{ block.super }}
+
+{% editable page.medialibrary.content %}
+{{ page.medialibrary.content|richtext_filter|safe }}
+{% endeditable %}
+
+{% block medialibrary %}
+{% with page.medialibrary.files.all as files %}
+{% for file in files %}
+{% block mediafile %}
+<div class="media" id="media-file-{{ file.id }}">
+    <a class="pull-left" href="{{ MEDIA_URL }}{{ file.file }}">
+        {% if file.file.filetype == 'Image' %}
+            <img class="media-object" src="{{ MEDIA_URL }}{% thumbnail file.file 64 64 %}">
+        {% else %}
+            <img class="media-object" src="{{ STATIC_URL }}img/file_icon.png" />
+        {% endif %}
+    </a>
+    <div class="media-body">
+        <strong><a href="{{ MEDIA_URL }}{{ file.file }}">
+            {{ file.title|default:file.file.filename }}
+        </a></strong>
+        <p>{{ file.description }}</strong>
+    </div>
+</div>
+{% endblock %}
+{% endfor %}
+{% endwith %}
+{% endblock %}
+{% endblock %}

@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name = 'mezzanine-file-collections',
-    version = '1.0',
+    version = '1.0.1',
     packages = ['mezzanine_file_collections'],
     include_package_data = True,
     license = 'WTFPL',

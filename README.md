@@ -1,7 +1,7 @@
-# Mezzanine Media Library
+# Mezzanine File Collections
 
-Mezzanine Media Library is an app for the Django/Mezzanine framework to
-display a list of downloadable files, whatever their type is.
+Mezzanine File Collection is a simple file container page type for the
+Django / Mezzanine CMS.
 
 The Mezzanine's core gallery module only deals with images. I got frustrated
 with it, I quickly developed an alternative to handle any filetype.
@@ -12,14 +12,14 @@ Most of this app's code is directly inspired from the Mezzanine's core.
 
 Installation is quite simple.
 
-    $ pip install mezzanine-media-library
+    $ pip install mezzanine-file-collections
 
-Add "mezzanine_media_library" to your list of installed apps. Then migrate
+Add "mezzanine_file_collections" to your list of installed apps. Then migrate
 your database. That's it.
 
 ## Usage
 
-Once installed, just create a new "Media library", and upload your files
+Once installed, just create a new "File collection", and upload your files
 the usual way.
 
 The default templates uses Bootstrap's media objects for a basic rendering,

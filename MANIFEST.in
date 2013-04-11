@@ -1,3 +1,3 @@
 include *md
 include LICENSE
-recursive-include mezzanine_media_library *py *html *css *js *png *jpg *svg
+recursive-include mezzanine_file_collections *py *html *css *js *png *jpg *svg

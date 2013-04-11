@@ -7,14 +7,14 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name = 'mezzanine-media-library',
+    name = 'mezzanine-file-collections',
     version = '1.0',
-    packages = ['mezzanine_media_library'],
+    packages = ['mezzanine_file_collections'],
     include_package_data = True,
     license = 'WTFPL',
-    description = 'A simple file library content type for Mezzanine',
+    description = 'A simple file collection page type for Mezzanine',
     long_description = README,
-    url = 'https://github.com/thibault/mezzanine-media-library',
+    url = 'https://github.com/thibault/mezzanine-file-collections',
     author = 'Thibault Jouannic',
     author_email = 'thibault@miximum.fr',
     setup_requires=('setuptools'),

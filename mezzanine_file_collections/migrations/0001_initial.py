@@ -9,29 +9,30 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding model 'MediaLibrary'
-        db.create_table(u'mezzanine_media_library_medialibrary', (
+        db.create_table(u'mezzanine_file_collections_medialibrary', (
             (u'page_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['pages.Page'], unique=True, primary_key=True)),
             ('content', self.gf('mezzanine.core.fields.RichTextField')()),
         ))
-        db.send_create_signal(u'mezzanine_media_library', ['MediaLibrary'])
+        db.send_create_signal(u'mezzanine_file_collections', ['MediaLibrary'])
 
         # Adding model 'MediaFile'
-        db.create_table(u'mezzanine_media_library_mediafile', (
+        db.create_table(u'mezzanine_file_collections_mediafile', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('_order', self.gf('django.db.models.fields.IntegerField')(null=True)),
-            ('library', self.gf('django.db.models.fields.related.ForeignKey')(related_name='files', to=orm['mezzanine_media_library.MediaLibrary'])),
+            ('library', self.gf('django.db.models.fields.related.ForeignKey')(related_name='files', to=orm['mezzanine_file_collections.MediaLibrary'])),
             ('file', self.gf('mezzanine.core.fields.FileField')(max_length=200)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
             ('description', self.gf('django.db.models.fields.CharField')(max_length=1000, blank=True)),
         ))
-        db.send_create_signal(u'mezzanine_media_library', ['MediaFile'])
+        db.send_create_signal(u'mezzanine_file_collections', ['MediaFile'])
 
 
     def backwards(self, orm):
         # Deleting model 'MediaLibrary'
-        db.delete_table(u'mezzanine_media_library_medialibrary')
+        db.delete_table(u'mezzanine_file_collections_medialibrary')
 
         # Deleting model 'MediaFile'
-        db.delete_table(u'mezzanine_media_library_mediafile')
+        db.delete_table(u'mezzanine_file_collections_mediafile')
 
 
     models = {
@@ -57,15 +58,16 @@ class Migration(SchemaMigration):
             'slug': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '500'})
         },
-        u'mezzanine_media_library.mediafile': {
+        u'mezzanine_file_collections.mediafile': {
             'Meta': {'ordering': "('_order',)", 'object_name': 'MediaFile'},
             '_order': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
             'description': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'blank': 'True'}),
             'file': ('mezzanine.core.fields.FileField', [], {'max_length': '200'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'library': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'files'", 'to': u"orm['mezzanine_media_library.MediaLibrary']"})
+            'library': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'files'", 'to': u"orm['mezzanine_file_collections.MediaLibrary']"}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'})
         },
-        u'mezzanine_media_library.medialibrary': {
+        u'mezzanine_file_collections.medialibrary': {
             'Meta': {'ordering': "('_order',)", 'object_name': 'MediaLibrary', '_ormbases': [u'pages.Page']},
             'content': ('mezzanine.core.fields.RichTextField', [], {}),
             u'page_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['pages.Page']", 'unique': 'True', 'primary_key': 'True'})
@@ -101,4 +103,4 @@ class Migration(SchemaMigration):
         }
     }
 
-    complete_apps = ['mezzanine_media_library']
+    complete_apps = ['mezzanine_file_collections']

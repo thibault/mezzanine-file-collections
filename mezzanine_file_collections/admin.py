@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from mezzanine.core.admin import TabularDynamicInlineAdmin
 from mezzanine.pages.admin import PageAdmin
-from mezzanine_media_library.models import MediaLibrary, MediaFile
+from mezzanine_file_collections.models import MediaLibrary, MediaFile
 
 
 class MediaFileInline(TabularDynamicInlineAdmin):

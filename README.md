@@ -19,7 +19,7 @@ your database. That's it.
 
 ## Usage
 
-Once installed, just create a new "File collection", and upload your files
+Once installed, just create a new "Media Library" page, and upload your files
 the usual way.
 
 The default templates uses Bootstrap's media objects for a basic rendering,

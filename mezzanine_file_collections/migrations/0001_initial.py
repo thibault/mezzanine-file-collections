@@ -1,106 +1,48 @@
 # -*- coding: utf-8 -*-
-import datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import migrations, models
+import mezzanine.core.fields
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'MediaLibrary'
-        db.create_table(u'mezzanine_file_collections_medialibrary', (
-            (u'page_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['pages.Page'], unique=True, primary_key=True)),
-            ('content', self.gf('mezzanine.core.fields.RichTextField')()),
-        ))
-        db.send_create_signal(u'mezzanine_file_collections', ['MediaLibrary'])
+    dependencies = [
+        ('pages', '0003_auto_20150527_1555'),
+    ]
 
-        # Adding model 'MediaFile'
-        db.create_table(u'mezzanine_file_collections_mediafile', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('_order', self.gf('django.db.models.fields.IntegerField')(null=True)),
-            ('library', self.gf('django.db.models.fields.related.ForeignKey')(related_name='files', to=orm['mezzanine_file_collections.MediaLibrary'])),
-            ('file', self.gf('mezzanine.core.fields.FileField')(max_length=200)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=1000, blank=True)),
-        ))
-        db.send_create_signal(u'mezzanine_file_collections', ['MediaFile'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'MediaLibrary'
-        db.delete_table(u'mezzanine_file_collections_medialibrary')
-
-        # Deleting model 'MediaFile'
-        db.delete_table(u'mezzanine_file_collections_mediafile')
-
-
-    models = {
-        u'contenttypes.contenttype': {
-            'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
-            'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'generic.assignedkeyword': {
-            'Meta': {'ordering': "('_order',)", 'object_name': 'AssignedKeyword'},
-            '_order': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
-            'content_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['contenttypes.ContentType']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'keyword': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'assignments'", 'to': u"orm['generic.Keyword']"}),
-            'object_pk': ('django.db.models.fields.IntegerField', [], {})
-        },
-        u'generic.keyword': {
-            'Meta': {'object_name': 'Keyword'},
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'site': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['sites.Site']"}),
-            'slug': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '500'})
-        },
-        u'mezzanine_file_collections.mediafile': {
-            'Meta': {'ordering': "('_order',)", 'object_name': 'MediaFile'},
-            '_order': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'blank': 'True'}),
-            'file': ('mezzanine.core.fields.FileField', [], {'max_length': '200'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'library': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'files'", 'to': u"orm['mezzanine_file_collections.MediaLibrary']"}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'})
-        },
-        u'mezzanine_file_collections.medialibrary': {
-            'Meta': {'ordering': "('_order',)", 'object_name': 'MediaLibrary', '_ormbases': [u'pages.Page']},
-            'content': ('mezzanine.core.fields.RichTextField', [], {}),
-            u'page_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['pages.Page']", 'unique': 'True', 'primary_key': 'True'})
-        },
-        u'pages.page': {
-            'Meta': {'ordering': "('titles',)", 'object_name': 'Page'},
-            '_meta_title': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
-            '_order': ('django.db.models.fields.IntegerField', [], {'null': 'True'}),
-            'content_model': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True'}),
-            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'expiry_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'gen_description': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'in_menus': ('mezzanine.pages.fields.MenusField', [], {'default': '(1, 2, 3)', 'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'in_sitemap': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'keywords': ('mezzanine.generic.fields.KeywordsField', [], {'object_id_field': "'object_pk'", 'to': u"orm['generic.AssignedKeyword']", 'frozen_by_south': 'True'}),
-            'keywords_string': ('django.db.models.fields.CharField', [], {'max_length': '500', 'blank': 'True'}),
-            'login_required': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'parent': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'children'", 'null': 'True', 'to': u"orm['pages.Page']"}),
-            'publish_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'short_url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
-            'site': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['sites.Site']"}),
-            'slug': ('django.db.models.fields.CharField', [], {'max_length': '2000', 'null': 'True', 'blank': 'True'}),
-            'status': ('django.db.models.fields.IntegerField', [], {'default': '2'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
-            'titles': ('django.db.models.fields.CharField', [], {'max_length': '1000', 'null': 'True'})
-        },
-        u'sites.site': {
-            'Meta': {'ordering': "('domain',)", 'object_name': 'Site', 'db_table': "'django_site'"},
-            'domain': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
-        }
-    }
-
-    complete_apps = ['mezzanine_file_collections']
+    operations = [
+        migrations.CreateModel(
+            name='MediaFile',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('_order', mezzanine.core.fields.OrderField(null=True, verbose_name='Order')),
+                ('file', mezzanine.core.fields.FileField(max_length=200, verbose_name='File')),
+                ('title', models.CharField(max_length=50, verbose_name='Title', blank=True)),
+                ('description', models.CharField(max_length=1000, verbose_name='Description', blank=True)),
+            ],
+            options={
+                'ordering': ('_order',),
+                'verbose_name': 'Media File',
+                'verbose_name_plural': 'Media Files',
+            },
+        ),
+        migrations.CreateModel(
+            name='MediaLibrary',
+            fields=[
+                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='pages.Page')),
+                ('content', mezzanine.core.fields.RichTextField(verbose_name='Content')),
+            ],
+            options={
+                'ordering': ('_order',),
+                'verbose_name': 'Media Library',
+                'verbose_name_plural': 'Media Libraries',
+            },
+            bases=('pages.page', models.Model),
+        ),
+        migrations.AddField(
+            model_name='mediafile',
+            name='library',
+            field=models.ForeignKey(related_name='files', to='mezzanine_file_collections.MediaLibrary'),
+        ),
+    ]
